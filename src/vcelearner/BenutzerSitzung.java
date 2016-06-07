@@ -29,20 +29,21 @@ public class BenutzerSitzung {
         this.zeitVorgabe = zeitVorgabe;
         this.benutzer = benutzer;
         sLKs = new ArrayList<>();
-        ArrayList<Benutzer2LernKarte> b2LKs = Benutzer2LernKarte.getAllByBenutzer(benutzer);
-        ArrayList<Integer> wiederVorlageLKIDs = new ArrayList<>();
-        for (Benutzer2LernKarte b2LK : b2LKs) {
-            if (b2LK.isWiedervorlage()) {
-                wiederVorlageLKIDs.add(b2LK.getLernKarte_id());
-            }
-        }
+//        ArrayList<Benutzer2LernKarte> b2LKs = Benutzer2LernKarte.getAllByBenutzer(benutzer);
+//        ArrayList<Integer> wiederVorlageLKIds = new ArrayList<>();
+//        for (Benutzer2LernKarte b2LK : b2LKs) {
+//            if (b2LK.isWiedervorlage()) {
+//                wiederVorlageLKIds.add(b2LK.getLernKarte_id());
+//            }
+//        }
+        ArrayList<Integer> wiederVorlageLKIds = Benutzer2LernKarte.getWiedervorlageLernKarteIDsByBenutzer(benutzer);
         for (LernKarte lK : lKs) {
             this.sLKs.add(new SitzungsLernKarte(lK));
-            if (wiederVorlageLKIDs.contains(lK.getId())) {
-                this.sLKs.get(this.sLKs.size()-1).setWiederVorlage(true);
+            if (wiederVorlageLKIds.contains(lK.getId())) {
+                this.sLKs.get(this.sLKs.size() - 1).setWiederVorlage(true);
             }
         }
-        lernSitzung= new LernSitzung("ungewertet",benutzer.getId());        
+        lernSitzung = new LernSitzung("ungewertet", benutzer.getId());
         LernSitzung.insert(lernSitzung);
     }
 
@@ -51,23 +52,23 @@ public class BenutzerSitzung {
         this.zeitVorgabe = zeitVorgabe;
         this.benutzer = benutzer;
         sLKs = new ArrayList<>();
-        ArrayList<Benutzer2LernKarte> b2LKs = Benutzer2LernKarte.getAllByBenutzer(benutzer);
-        ArrayList<Integer> wiederVorlageLKIDs = new ArrayList<>();
-        for (Benutzer2LernKarte b2LK : b2LKs) {
-            if (b2LK.isWiedervorlage()) {
-                wiederVorlageLKIDs.add(b2LK.getLernKarte_id());
-            }
-        }
+//        ArrayList<Benutzer2LernKarte> b2LKs = Benutzer2LernKarte.getAllByBenutzer(benutzer);
+//        ArrayList<Integer> wiederVorlageLKIds = new ArrayList<>();
+//        for (Benutzer2LernKarte b2LK : b2LKs) {
+//            if (b2LK.isWiedervorlage()) {
+//                wiederVorlageLKIds.add(b2LK.getLernKarte_id());
+//            }
+//        }
+        ArrayList<Integer> wiederVorlageLKIds = Benutzer2LernKarte.getWiedervorlageLernKarteIDsByBenutzer(benutzer);
         for (LernKarte lK : lKs) {
             this.sLKs.add(new SitzungsLernKarte(lK));
-            if (wiederVorlageLKIDs.contains(lK.getId())) {
-                this.sLKs.get(this.sLKs.size()-1).setWiederVorlage(true);
+            if (wiederVorlageLKIds.contains(lK.getId())) {
+                this.sLKs.get(this.sLKs.size() - 1).setWiederVorlage(true);
             }
         }
-        lernSitzung= new LernSitzung(lernSitzungsTyp,benutzer.getId());        
+        lernSitzung = new LernSitzung(lernSitzungsTyp, benutzer.getId());
         LernSitzung.insert(lernSitzung);
     }
-    
 
     public static void insert(BenutzerSitzung benutzerSitzung) {
 
@@ -76,15 +77,14 @@ public class BenutzerSitzung {
             // Wiedervorlage in Benutzer2Lernkarte speichern, nur wenn
             // Wiedervorlage = true und kein diesbezüglicher Eintrag in der DB
             // vorhaneden ist
-            Benutzer2LernKarte b2lk = 
-                        new Benutzer2LernKarte(benutzerSitzung.getBenutzer().getId(),
-                        benutzerSitzung.getsLKs().get(i).getlK().getId(),
-                        benutzerSitzung.getsLKs().get(i).isWiederVorlage());
-            
-            if (benutzerSitzung.getsLKs().get(i).isWiederVorlage() == true && 
-                Benutzer2LernKarte.checkWiedervorlage(b2lk)== false) {
-                
-                
+            Benutzer2LernKarte b2lk
+                    = new Benutzer2LernKarte(benutzerSitzung.getBenutzer().getId(),
+                            benutzerSitzung.getsLKs().get(i).getlK().getId(),
+                            benutzerSitzung.getsLKs().get(i).isWiederVorlage());
+
+            if (benutzerSitzung.getsLKs().get(i).isWiederVorlage() == true
+                    && Benutzer2LernKarte.checkWiedervorlage(b2lk) == false) {
+
                 Benutzer2LernKarte.insert(b2lk);
             }
 
@@ -143,7 +143,9 @@ public class BenutzerSitzung {
     }
 
     public SitzungsLernKarte geheZu(int nummer) {
-        aktuellerSLKIndex = nummer - 1;
+        if (nummer <= sLKs.size() && nummer > 0) {
+            aktuellerSLKIndex = nummer - 1;
+        }
         return getAktuelleSitzungsLernKarte();
     }
 
@@ -155,8 +157,11 @@ public class BenutzerSitzung {
             rueckgabe += "Themenbereich(e): " + getAktuelleSitzungsLernKarte().getlK().gettBs().toString();
         } else {
             rueckgabe += "Frage " + (aktuellerSLKIndex + 1) + " / " + sLKs.size();
-            rueckgabe += "           (ID = " + getAktuelleSitzungsLernKarte().getlK().getId() + ")";
-            rueckgabe += "          Schwierigkeit: " + sLKs.get(aktuellerSLKIndex).getlK().getSchwierigkeitsGrad();
+            rueckgabe += " \t(ID = " + getAktuelleSitzungsLernKarte().getlK().getId() + ")";
+            rueckgabe += " \tSchwierigkeit: " + sLKs.get(aktuellerSLKIndex).getlK().getSchwierigkeitsGrad();
+            if (getAktuelleSitzungsLernKarte().isGemogelt()) {
+                rueckgabe += " \tGEMOGELT!";
+            }
         }
         return rueckgabe;
     }

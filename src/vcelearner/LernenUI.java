@@ -986,6 +986,7 @@ public class LernenUI extends javax.swing.JFrame {
 
     private void ButtonEndeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEndeActionPerformed
         if (modus == 0) {
+            cache();
             beendeLernModus();
         }
     }//GEN-LAST:event_ButtonEndeActionPerformed
