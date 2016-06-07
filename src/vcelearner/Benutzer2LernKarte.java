@@ -94,6 +94,38 @@ public class Benutzer2LernKarte {
         }
         return users;
     }
+    
+    public static ArrayList<Integer> getWiedervorlageLernKarteIDsByBenutzer(Benutzer user) {
+        ArrayList<Integer> lKIds = new ArrayList<>();
+        try {
+            Connection con = MySQLConnection.getConnection();
+            String sql = "SELECT * FROM Benutzer2LernKarte WHERE benutzer_id=? AND wiedervorlage=?";
+            pst = con.prepareStatement(sql);
+            pst.setInt(1, user.getId());
+            pst.setString(2, "true");
+            rst = pst.executeQuery();
+            while (rst.next()) {
+                Integer lKId = rst.getInt("lernkarte_id");
+                        
+                lKIds.add(lKId);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+                if (rst != null) {
+                    rst.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        return lKIds;
+    }
 
     public static void delete(Benutzer user, LernKarte lK) {
         // Prüfung, ob Wiedervorlage zur LernKarte vorhanden ist
