@@ -19,7 +19,6 @@ import java.awt.event.ActionListener;
 public class LernenUI extends javax.swing.JFrame {
 
     BenutzerSitzung session;
-
     /**
      * Creates new form LernenUIMockup
      */

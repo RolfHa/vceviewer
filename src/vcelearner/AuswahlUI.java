@@ -34,7 +34,6 @@ public class AuswahlUI extends javax.swing.JFrame {
         handler.calcUnselectedLKs();
         spinnerAnzahlFragen.setModel(new javax.swing.SpinnerNumberModel(
                 handler.maxFragenAnzahlByTBs(), 0, handler.maxFragenAnzahlByTBs(), 1));
-
     }
 
     private void updateSelection() {

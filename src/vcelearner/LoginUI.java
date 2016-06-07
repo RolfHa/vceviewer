@@ -159,7 +159,7 @@ public class LoginUI extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonAbbrechenActionPerformed
 
     private void textFieldPasswortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldPasswortActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_textFieldPasswortActionPerformed
 
     private void textFieldBenutzerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldBenutzerActionPerformed

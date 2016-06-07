@@ -23,6 +23,7 @@ public class AuswahlLogik {
     private String sitzungsTyp;
     ArrayList<Integer> wiederVorlageLKIDs = new ArrayList<>();
 
+    
     public AuswahlLogik(Benutzer ben) {
         this.ben = ben;
         ArrayList<Benutzer2LernKarte> b2LKs = Benutzer2LernKarte.getAllByBenutzer(ben);

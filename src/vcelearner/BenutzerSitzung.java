@@ -59,6 +59,7 @@ public class BenutzerSitzung {
 //                wiederVorlageLKIds.add(b2LK.getLernKarte_id());
 //            }
 //        }
+
         ArrayList<Integer> wiederVorlageLKIds = Benutzer2LernKarte.getWiedervorlageLernKarteIDsByBenutzer(benutzer);
         for (LernKarte lK : lKs) {
             this.sLKs.add(new SitzungsLernKarte(lK));

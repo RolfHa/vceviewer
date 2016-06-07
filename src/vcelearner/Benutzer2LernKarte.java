@@ -105,8 +105,7 @@ public class Benutzer2LernKarte {
             pst.setString(2, "true");
             rst = pst.executeQuery();
             while (rst.next()) {
-                Integer lKId = rst.getInt("lernkarte_id");
-                        
+                Integer lKId = rst.getInt("lernkarte_id");                        
                 lKIds.add(lKId);
             }
         } catch (SQLException ex) {
