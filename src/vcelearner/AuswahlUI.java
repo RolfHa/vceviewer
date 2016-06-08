@@ -27,7 +27,7 @@ public class AuswahlUI extends javax.swing.JFrame {
         handler = new AuswahlLogik(ben);
         handler.setSitzungsTyp("Lern");
         comboBoxModus.setSelectedIndex(1);
-        for (javax.swing.JCheckBox cbt:checkBoxesThema) {
+        for (javax.swing.JCheckBox cbt : checkBoxesThema) {
             cbt.setSelected(true);
         }
         updateSelection();
@@ -37,8 +37,8 @@ public class AuswahlUI extends javax.swing.JFrame {
     }
 
     private void updateSelection() {
-        for (int i=0; i<7; i++) {
-        handler.gettBsGewaehlt()[i] = checkBoxesThema[i].isSelected();
+        for (int i = 0; i < 7; i++) {
+            handler.gettBsGewaehlt()[i] = checkBoxesThema[i].isSelected();
         }
         handler.setNurWiederVorlage(toggleButtonWiedervorlage.isSelected());
     }
@@ -483,12 +483,16 @@ public class AuswahlUI extends javax.swing.JFrame {
                     cbt.setSelected(true);
                     cbt.setEnabled(false);
                 }
+                toggleButtonWiedervorlage.setSelected(false);
+                toggleButtonWiedervorlage.setEnabled(false);
+                updateSelection();
+                handler.calcUnselectedLKs();
+                spinnerAnzahlFragen.setModel(new javax.swing.SpinnerNumberModel(
+                        handler.maxFragenAnzahlByTBs(), 0, handler.maxFragenAnzahlByTBs(), 1));
                 spinnerAnzahlFragen.setValue(70);
                 spinnerAnzahlFragen.setEnabled(false);
                 spinnerTimer.setValue(120);
                 spinnerTimer.setEnabled(false);
-                toggleButtonWiedervorlage.setSelected(false);
-                toggleButtonWiedervorlage.setEnabled(false);
                 break;
             }
             case 1: {
@@ -522,10 +526,6 @@ public class AuswahlUI extends javax.swing.JFrame {
                 break;
             }
         }
-        updateSelection();
-        handler.calcUnselectedLKs();
-        spinnerAnzahlFragen.setModel(new javax.swing.SpinnerNumberModel(
-                handler.maxFragenAnzahlByTBs(), 0, handler.maxFragenAnzahlByTBs(), 1));
 
     }//GEN-LAST:event_comboBoxModusActionPerformed
 
@@ -555,7 +555,7 @@ public class AuswahlUI extends javax.swing.JFrame {
         updateSelection();
         handler.calcUnselectedLKs();
         spinnerAnzahlFragen.setModel(new javax.swing.SpinnerNumberModel(
-                handler.maxFragenAnzahlByTBs(), 0, handler.maxFragenAnzahlByTBs(), 1));        
+                handler.maxFragenAnzahlByTBs(), 0, handler.maxFragenAnzahlByTBs(), 1));
     }//GEN-LAST:event_buttonAlleThemenActionPerformed
 
     /**

@@ -166,13 +166,15 @@ public class LernenUI extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 //long zwischen = 0;  
                 long now = System.currentTimeMillis();
-                if (now >= end) {
+                if (now >= end || modus != 0) {
                     //remainingMinLabel.setText( "" );
                     labelTimer.setText("");
                     //startButton.setEnabled( true );
                     //JOptionPane.showMessageDialog( null, "BING!" );
                     timer.stop();
-                    beendeLernModus();
+                    if (modus==0) {
+                        beendeLernModus();
+                    }
                     zaehlerLaeuft = false;
 
                 } else //zwischen = (end-now)/1000; 
@@ -968,7 +970,7 @@ public class LernenUI extends javax.swing.JFrame {
     }//GEN-LAST:event_checkBoxEActionPerformed
 
     private void toggleButtonWiedervorlageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonWiedervorlageActionPerformed
-        session.getAktuelleSitzungsLernKarte().setWiederVorlage(true);
+        session.setAktuelleSitzungsLernKarteWiederVorlage(toggleButtonWiedervorlage.isSelected());
     }//GEN-LAST:event_toggleButtonWiedervorlageActionPerformed
 
     private void buttonGeheZuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGeheZuActionPerformed
