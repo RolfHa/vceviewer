@@ -1,3 +1,31 @@
+/**
+ * LERNSITZUNG
+ * 
+ * Basisklasse entspricht der "lernsitzung"-tabelle in der Datenbank
+ *  
+ * 
+ * 
+ * Hier werden Lernsitzungen mit folgenden Parametern gespeichert:
+ * 
+ * 
+ * - id             int, wird in der DB via auto_increment erzeugt
+ * 
+ * - typ            String
+ * 
+ * - datum          String
+ * 
+ * - benutzer_id    int
+ * 
+ * 
+ * 
+ * Methodenübersicht:
+ * 
+ * - insert()
+ * - getALL()
+ * - getAllByBenutzer()
+ * - toString()
+ */
+
 package vcelearner;
 
 import java.sql.Connection;

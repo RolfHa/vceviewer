@@ -1,3 +1,24 @@
+/**
+ * THEMENBEREICH
+ * 
+ * Basisklasse entspricht der "themenbereich"-tabelle in der Datenbank
+ *  
+ * 
+ * 
+ * Hier werden ThemenBereiche mit folgenden Parametern gespeichert:
+ * 
+ * 
+ * - id             int, wird in der DB via auto_increment erzeugt
+ * 
+ * - bezeichnung    String
+ * 
+ * 
+ * 
+ * Methodenübersicht:
+ * 
+ * - getById()
+ * - toString()
+ */
 package vcelearner;
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -25,18 +46,26 @@ public class ThemenBereich {
     static PreparedStatement pst = null;
     static ResultSet rst = null;
 
+    // Objektvariablen
     private int id;
     private String bezeichnung;
 
+    // Konstruktor
     public ThemenBereich(int id, String bezeichnung) {
         this.id = id;
         this.bezeichnung = bezeichnung;
     }
 
+    // GETTER
     public int getId() {
         return id;
     }
 
+    /**
+     * Gibt einen Themenbereich anhand der ID des Themenbereichs zurück.
+     * @param tBid
+     * @return 
+     */
     public static ThemenBereich getById(int tBid) {
         ThemenBereich tB = null;
         try {

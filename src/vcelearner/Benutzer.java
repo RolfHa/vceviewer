@@ -1,3 +1,33 @@
+/**
+ * BENUTZER
+ * 
+ * Basisklasse entspricht der "benutzer"-tabelle in der Datenbank
+ *  
+ * 
+ * 
+ * Hier werden Benutzer mit folgenden Parametern gespeichert:
+ * 
+ * 
+ * - id             int, wird in der DB via auto_increment erzeugt
+ * 
+ * - login          String, wird manuell in die DB eingetragen
+ * 
+ * - passwort       String, wird manuell in die DB eingetragen
+ * 
+ * - vorname        String, wird manuell in die DB eingetragen
+ * 
+ * - nachname       String, wird manuell in die DB eingetragen
+ * 
+ * 
+ * Methodenübersicht:
+ * 
+ * - insert()
+ * - getBenutzer()
+ * - getAlleBenutzer()
+ * - loginCheck()
+ * - toString()
+ */
+
 package vcelearner;
 
 import java.sql.Connection;
@@ -18,9 +48,12 @@ public class Benutzer {
     static PreparedStatement pst = null;
     static ResultSet rst = null;
     
+    // ObjektVariablen
     private int id;
     private String login, passwort, vorname, nachname;
 
+    
+//  Konstruktor:
     public Benutzer(String login, String passwort) {
         this.login = login;
         this.passwort = passwort;
@@ -41,6 +74,8 @@ public class Benutzer {
         this.nachname = nachname;
     }
     
+    
+    // GETTER
     public int getId() {
         return id;
     }
@@ -73,6 +108,10 @@ public class Benutzer {
         return passwort;
     }
     
+    /**
+     * Speichert LernKarte in "lernkarte"-tabelle
+     * @param user 
+     */
     public static void insert(Benutzer user){
         try {
             // VERBINDUNG AUFBBAUEN:
@@ -105,6 +144,13 @@ public class Benutzer {
             }
         }
     }
+    
+    /**
+     * Nimmt Benutzer mit nur Login und Passwort entgegen und gibt einen 
+     * vollständig gefüllten Benutzer zurück. Dazu wird hierbei die DB abgefragt.
+     * @param user
+     * @return 
+     */
     
     public static Benutzer getBenutzer(Benutzer user){
         Benutzer newUser = null;
@@ -140,6 +186,12 @@ public class Benutzer {
         return newUser;        
     }   
     
+    /**
+     * Gibt eine ArrayList vom Typ Benutzer von allen in der Benutzertabelle
+     * gespeicherten Benutzern zurück.
+     * @return 
+     */
+        
     public static ArrayList<Benutzer> getAlleBenutzer(){        
         ArrayList<Benutzer> users = new ArrayList<>();        
         try {            
@@ -170,6 +222,18 @@ public class Benutzer {
         }
         return users;        
     }   
+    
+    
+    /**
+     *  Nimmt Benutzer mit nur Login und Passwort entgegen. Dabei wird aus der
+     *  der Benutzertabelle eine ArrayListe mit allen Benutzern gezogen, welche
+     *  lediglich die Attributen "login" und "passwort" (neben der ID) enthält.
+     *  Falls der Benutzer in der DB existiert, wird die getBenutzer() Methode
+     *  aufgerufen. Andernfalls wird ein Dummy-Benutzer mit der ID=0 zurück-
+     *  gegeben.
+     * @param user
+     * @return 
+     */
     
     public static Benutzer loginCheck(Benutzer user) {        
         Benutzer checkedUser = new Benutzer(0,"login",

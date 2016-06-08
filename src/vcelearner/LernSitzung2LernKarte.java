@@ -1,3 +1,28 @@
+/**
+ * LERNSITZUNG2LERNKARTE
+ * 
+ * Basisklasse entspricht der "lernsitzung2lernkarte"-tabelle in der Datenbank
+ *  
+ * 
+ * Hier wird die Gemogelt-Information in Abhängigkeit von der lernsitzung_id
+ * und der lernkarte_id mit folgenden Parametern gespeichert:
+ * 
+ * 
+ * - lersitzung_id          int
+ * 
+ * - lernkarte_id           int
+ * 
+ * - gemogelt               boolean
+ * 
+ * 
+ * 
+ * Methodenübersicht:
+ * 
+ * - insert()
+ * - getAllByLernSitzung()
+ * - toString()
+ * 
+ */
 package vcelearner;
 
 import java.sql.Connection;

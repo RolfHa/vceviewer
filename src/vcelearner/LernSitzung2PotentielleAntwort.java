@@ -1,3 +1,27 @@
+/**
+ * LERNSITZUNG2POTENTIELLEANTWORT
+ * 
+ * Basisklasse entspricht der "lernsitzung2potentielleantwort"-tabelle in der Datenbank
+ *  
+ * 
+ * Hier werden die gegebenen Antworten (als Datentyp: PotentielleAntwort) 
+ * in Abhängigkeit von der lernsitzung_id mit folgenden Parametern gespeichert:
+ * 
+ * 
+ * - lersitzung_id               int
+ * 
+ * - potentielleAntwort_id       int
+ * 
+ * 
+ * 
+ * 
+ * Methodenübersicht:
+ * 
+ * - insert()
+ * - getAllByLernSitzung()
+ * - toString()
+ * 
+ */
 package vcelearner;
 
 import java.sql.Connection;

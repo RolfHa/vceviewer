@@ -1,3 +1,32 @@
+/**
+ * SITZUNG
+ * 
+ * 
+ * Arbeitet auf der Klasse:
+ * 
+ * - LernKarte
+ * 
+ * 
+ * Hier befindet sich die Programmlogik zur EingabeUI.
+ * 
+ * 
+ * - lKs                         ArrayList(Typ: LernKarte)
+ * 
+ * - aktuellerLKIndex            int
+ * 
+ * 
+ * 
+ * 
+ * Methodenübersicht:
+ * 
+ * - toString()
+ * - addLernKarte()
+ * - removeLernKarte()
+ * - getNextLernKarte()
+ * - getPrevLernKarte()
+ * - getById()
+ * 
+ */
 package vcelearner;
 
 import java.util.ArrayList;
