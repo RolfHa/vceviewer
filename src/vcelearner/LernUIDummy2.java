@@ -31,7 +31,7 @@ public class LernUIDummy2 {
             lKs.remove(lK);
         }
        
-        Benutzer ben = Benutzer.loginCheck(new Benutzer("Rolf", "Rolf"));
+        Benutzer ben = Benutzer.loginCheck(new Benutzer("Janko", "Janko"));
         BenutzerSitzung session = new BenutzerSitzung(0, ben, lKs);
         
 /* abgeänderte Kopie aus UI-main */
