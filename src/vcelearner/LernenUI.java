@@ -68,7 +68,7 @@ public class LernenUI extends javax.swing.JFrame {
         }
         // Rolf-Mode
         if (session.getBenutzer().getLogin().equals("Rolf")) {
-            Font f = textAreaFrage.getFont().deriveFont(Float.valueOf(spinnerFontSize.getValue().toString()));
+            Font f = textAreaFrage.getFont().deriveFont(18.0f);
             textAreaFrage.setFont(f);
             for (javax.swing.JTextArea taa : textAreasAntwort) {
                 taa.setFont(f);
