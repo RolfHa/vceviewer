@@ -19,6 +19,7 @@ import java.awt.event.ActionListener;
 public class LernenUI extends javax.swing.JFrame {
 
     BenutzerSitzung session;
+
     /**
      * Creates new form LernenUIMockup
      */
@@ -38,7 +39,7 @@ public class LernenUI extends javax.swing.JFrame {
 
         scrollPane1.getVerticalScrollBar().setUnitIncrement(15);
         timerDauer = session.getZeitVorgabe();
-        if (session.getZeitVorgabe()>0) {
+        if (session.getZeitVorgabe() > 0) {
             timerZaehlt();
         }
         fillWithValues();
@@ -62,9 +63,21 @@ public class LernenUI extends javax.swing.JFrame {
 
         scrollPane1.getVerticalScrollBar().setUnitIncrement(15);
         timerDauer = session.getZeitVorgabe();
-        if (session.getZeitVorgabe()>0) {
+        if (session.getZeitVorgabe() > 0) {
             timerZaehlt();
         }
+        // Rolf-Mode
+        if (session.getBenutzer().getLogin().equals("Rolf")) {
+            Font f = textAreaFrage.getFont().deriveFont(Float.valueOf(spinnerFontSize.getValue().toString()));
+            textAreaFrage.setFont(f);
+            for (javax.swing.JTextArea taa : textAreasAntwort) {
+                taa.setFont(f);
+            }
+            for (javax.swing.JCheckBox cba : checkBoxesAntwort) {
+                cba.setFont(f);
+            }
+        }
+        // Ende Rolf-Mode
         fillWithValues();
     }
 
@@ -172,7 +185,7 @@ public class LernenUI extends javax.swing.JFrame {
                     //startButton.setEnabled( true );
                     //JOptionPane.showMessageDialog( null, "BING!" );
                     timer.stop();
-                    if (modus==0) {
+                    if (modus == 0) {
                         beendeLernModus();
                     }
                     zaehlerLaeuft = false;
@@ -586,7 +599,6 @@ public class LernenUI extends javax.swing.JFrame {
         textAreaFrage.setEditable(false);
         textAreaFrage.setBackground(panelFrage.getBackground());
         textAreaFrage.setColumns(20);
-        textAreaFrage.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
         textAreaFrage.setRows(1);
         textAreaFrage.setBorder(null);
         scrollPaneFrage.setViewportView(textAreaFrage);
@@ -847,7 +859,7 @@ public class LernenUI extends javax.swing.JFrame {
             }
         });
 
-        spinnerFontSize.setModel(new javax.swing.SpinnerNumberModel(18, 8, 24, 1));
+        spinnerFontSize.setModel(new javax.swing.SpinnerNumberModel(13, 8, 24, 1));
         spinnerFontSize.setOpaque(false);
         spinnerFontSize.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -1065,15 +1077,15 @@ public class LernenUI extends javax.swing.JFrame {
     }//GEN-LAST:event_scrollPaneAntwortHMouseWheelMoved
 
     private void spinnerFontSizeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerFontSizeStateChanged
-    Font f = textAreaFrage.getFont().deriveFont(Float.valueOf(spinnerFontSize.getValue().toString()));
-    textAreaFrage.setFont(f);
-    for (javax.swing.JTextArea taa : textAreasAntwort) {
-        taa.setFont(f);
-    }
-     for (javax.swing.JCheckBox cba : checkBoxesAntwort) {
-        cba.setFont(f);
-    }
-    fillWithValues();
+        Font f = textAreaFrage.getFont().deriveFont(Float.valueOf(spinnerFontSize.getValue().toString()));
+        textAreaFrage.setFont(f);
+        for (javax.swing.JTextArea taa : textAreasAntwort) {
+            taa.setFont(f);
+        }
+        for (javax.swing.JCheckBox cba : checkBoxesAntwort) {
+            cba.setFont(f);
+        }
+        fillWithValues();
     }//GEN-LAST:event_spinnerFontSizeStateChanged
     private void textFieldGeheZuKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldGeheZuKeyPressed
         // key=10 heisst Enter o. Return-Taste gedrückt
