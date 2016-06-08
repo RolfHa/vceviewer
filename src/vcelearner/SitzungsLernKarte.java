@@ -1,7 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * SITZUNGSLERNKARTE
+ * 
+ * Wrapper Klasse bzw. Erweiterung der Klasse Lernkarte. 
+ *  
+ * 
+ * 
+ * Hier werden LernKarten mit folgenden Parametern gespeichert:
+ * 
+ * 
+ * - lK                         LernKarte
+ * 
+ * - gegebeneAntworten          ArrayList(Typ: PotentielleAntwort)
+ * 
+ * - wiederVorlage              boolean
+ * 
+ * - gemogelt                   boolean
+ * 
+ * - mogelnAktiv                boolean
+ * 
+ * 
+ * Methodenübersicht:
+ * 
+ * keine, außer getter und setter
+ * 
  */
 package vcelearner;
 
@@ -12,12 +33,15 @@ import java.util.ArrayList;
  * @author J.Bleich
  */
 public class SitzungsLernKarte {
+    
+    // Objektvariablen
     private LernKarte lK;
     private ArrayList<PotentielleAntwort> gegebeneAntworten;
     private boolean wiederVorlage;
     private boolean gemogelt;
     private boolean mogelnAktiv;
 
+    // Konstruktor
     public SitzungsLernKarte(LernKarte lK) {
         this.lK = lK;
         gemogelt = false;
@@ -25,6 +49,7 @@ public class SitzungsLernKarte {
         gegebeneAntworten = new ArrayList<>();
     }
 
+    // GETTER und SETTER
     public ArrayList<PotentielleAntwort> getGegebeneAntworten() {
         return gegebeneAntworten;
     }

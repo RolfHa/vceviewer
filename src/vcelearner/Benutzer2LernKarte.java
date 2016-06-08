@@ -1,3 +1,32 @@
+/**
+ * BENUTZER2LERNKARTE
+ * 
+ * Basisklasse entspricht der "benutzer2lernkarte"-Zuordnungstabelle in der
+ * Datenbank
+ *  
+ * 
+ * Hier wird die Wiedervorlage-Information in Abhängigkeit von der benutzer_id
+ * und der lernkarte_id mit folgenden Parametern gespeichert:
+ * 
+ * 
+ * - benutzer_id        int
+ * 
+ * - lernkarte_id       int
+ * 
+ * - wiedervorlage      boolean, wird zu String bei insert()
+ * 
+ * 
+ * Methodenübersicht:
+ * 
+ * - insert()
+ * - getAllByBenutzer()
+ * - delete()
+ * - checkWiedervorlage()
+ * - getAll()
+ * - getWiedervorlageLernKarteIDsByBenutzer()
+ * - toString()
+ */
+
 package vcelearner;
 
 import java.sql.Connection;
@@ -36,6 +65,15 @@ public class Benutzer2LernKarte {
     }
 
     // Methoden
+    
+    /**
+     * Speichert in die Benutzer2LernKartetabelle die Wiedervorlageinformation
+     * in Abhängigkeit von der benutzer_id und der lernkarte-id für eine 
+     * einzelne Lernkarte. 
+     * Es sollen nur "true"-Werte gespeichert werden, "false"-Werte können aber 
+     * prinzipiell auch gespeichert werden.
+     * @param B2LK 
+     */
     public static void insert(Benutzer2LernKarte B2LK) {
         try {
             // VERBINDUNG AUFBBAUEN:
@@ -61,6 +99,13 @@ public class Benutzer2LernKarte {
         }
     }
 
+    /**
+     * Gibt eine ArrayListe vom Typ Benutzer2LernKarte in Abhängigkeit vom 
+     * übergebenen Benutzer zurück. (zum erhalten der Wiedervorlageinfo) 
+     * @param user
+     * @return 
+     */
+    
     public static ArrayList<Benutzer2LernKarte> getAllByBenutzer(Benutzer user) {
         ArrayList<Benutzer2LernKarte> users = new ArrayList<>();
         try {
@@ -95,6 +140,12 @@ public class Benutzer2LernKarte {
         return users;
     }
     
+        /**
+        * Gibt eine ArrayList vom Typ Integer von allen in der 
+        * Benutzer2LernKartetabelle gespeicherten lernKarte_ids vom übergebenen
+        * Benutzer zurück.
+        * @return 
+        */
     public static ArrayList<Integer> getWiedervorlageLernKarteIDsByBenutzer(Benutzer user) {
         ArrayList<Integer> lKIds = new ArrayList<>();
         try {
@@ -125,7 +176,14 @@ public class Benutzer2LernKarte {
         }
         return lKIds;
     }
-
+    
+    /**
+     * Löscht in der Benutzer2LernKartetabelle die Wiedervorlageinformation
+     * in Abhängigkeit von der benutzer_id und der lernkarte-id aus den 
+     * übergebenen Benutzer- und LernKartenobjekten für eine einzelne Lernkarte. 
+     * @param user
+     * @param lK 
+     */
     public static void delete(Benutzer user, LernKarte lK) {
         // Prüfung, ob Wiedervorlage zur LernKarte vorhanden ist
         if (checkWiedervorlage(new Benutzer2LernKarte(user.getId(), lK.getId()))) {
@@ -149,7 +207,11 @@ public class Benutzer2LernKarte {
             }
         }
     }
-
+/**
+ * Prüft, ob wiedervorlage für die  Benutzer2LernKarte vorhanden ist
+ * @param b2lk
+ * @return 
+ */
     public static boolean checkWiedervorlage(Benutzer2LernKarte b2lk) {
         boolean chkWiedevorlage = false;
         for (Benutzer2LernKarte alleB2lk : Benutzer2LernKarte.getAll()) {
@@ -162,6 +224,13 @@ public class Benutzer2LernKarte {
         return chkWiedevorlage;
     }
 
+    
+    /**
+     * Gibt eine ArrayList vom Typ Benutzer2LernKarte von allen in der 
+     * Benutzer2LernKartetabelle gespeicherten Wiedervorlageinformationen zurück.
+     * @return 
+     */
+    
     public static ArrayList<Benutzer2LernKarte> getAll() {
         ArrayList<Benutzer2LernKarte> b2lkList = new ArrayList<>();
         try {

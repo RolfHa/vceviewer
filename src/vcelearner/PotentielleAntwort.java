@@ -1,3 +1,30 @@
+/**
+ * POTENTIELLEANTWORT
+ * 
+ * Basisklasse entspricht der "potentielleantwort"-tabelle in der Datenbank
+ *  
+ * 
+ * 
+ * Hier werden PotentielleAntworten mit folgenden Parametern gespeichert:
+ * 
+ * 
+ * - id                int, wird in der DB via auto_increment erzeugt
+ * 
+ * - richtigkeit       boolean
+ * 
+ * - antwort           String
+ * 
+ * - lernKarte_id      String
+ * 
+ * 
+ * 
+ * Methodenübersicht:
+ * 
+ * - insert()
+ * - delete()
+ * - getAllByLernKarte_id()
+ * - toString()
+ */
 package vcelearner;
 
 import java.sql.Connection;
@@ -19,11 +46,13 @@ public class PotentielleAntwort {
     static PreparedStatement pst = null;
     static ResultSet rst = null;
 
+    // Objektvariablen
     private int id;
     private boolean richtigkeit;
     private String antwort;
     private int lernKarte_id;
 
+    // Konstruktor
     public PotentielleAntwort(boolean richtigkeit, String antwort, int lernKarte_id) {
         this.antwort = antwort;
         this.richtigkeit = richtigkeit;
@@ -35,6 +64,8 @@ public class PotentielleAntwort {
         this.antwort = antwort;
     }
 
+    
+    // GETTER
     public int getId() {
         return id;
     }
@@ -51,6 +82,7 @@ public class PotentielleAntwort {
         return lernKarte_id;
     }
 
+    // SETTER
     public void setId(int id) {
         this.id = id;
     }
@@ -59,7 +91,10 @@ public class PotentielleAntwort {
         this.lernKarte_id = lernKarte_id;
     }
     
-
+    /**
+     * PotetielleAntwort in der PotetielleAntworttabelle speichern.
+     * @param pA 
+     */
     public static void insert(PotentielleAntwort pA) {
         try {
             // VERBINDUNG AUFBBAUEN:
@@ -96,6 +131,10 @@ public class PotentielleAntwort {
         }
     }
 
+    /**
+     * PotetielleAntwort aus der PotetielleAntworttabelle löschen
+     * @param lKid 
+     */
     public static void delete(int lKid) {
 
         try {
@@ -161,6 +200,12 @@ public class PotentielleAntwort {
 //        return pAs;
 //    } 
 
+    /**
+     * Gibt eine ArrayList vom Typ PotetielleAntwort anhand der übergebenen
+     * lernKarte_id zurück.
+     * @param lKid
+     * @return 
+     */
     public static ArrayList<PotentielleAntwort> getAllByLernKarte_id(int lKid) {
         ArrayList<PotentielleAntwort> pAs = new ArrayList<>();
         try {

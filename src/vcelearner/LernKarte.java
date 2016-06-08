@@ -1,3 +1,32 @@
+/**
+ * LERNKARTE
+ * 
+ * Basisklasse entspricht der "lernkarte"-tabelle in der Datenbank
+ *  
+ * 
+ * Hier wird die LernKarte mit folgenden Parametern gespeichert:
+ * 
+ * 
+ * - id                     int
+ * 
+ * - frage                  String
+ * 
+ * - schwierigkeitsgrad     int
+ * 
+ * - tBs                    ArrayList(Typ: ThemenBereich)
+ * 
+ * - pAs                    ArrayList(Typ: PotentielleAntwort)
+ * 
+ * 
+ * Methodenübersicht:
+ * 
+ * - insert()
+ * - delete()
+ * - getAll()
+ * - getById()
+ * - update()           DEAKTIVIERT!
+ * - toString()
+ */
 package vcelearner;
 
 import java.sql.Connection;
@@ -19,12 +48,14 @@ public class LernKarte {
     static PreparedStatement pst = null;
     static ResultSet rst = null;
 
+    // Objektvariablen
     private int id;
     private String frage;
     private int schwierigkeitsGrad;
     private ArrayList<ThemenBereich> tBs = null;
     private ArrayList<PotentielleAntwort> pAs = null;
 
+    // Konstruktor
     public LernKarte(int id, String frage, int schwierigkeitsGrad) {
         this.id = id;
         this.frage = frage;
@@ -36,6 +67,7 @@ public class LernKarte {
         this.schwierigkeitsGrad = schwierigkeitsGrad;
     }
 
+    // GETTER
     public int getId() {
         return id;
     }
@@ -56,6 +88,7 @@ public class LernKarte {
         return pAs;
     }
 
+    // SETTER
     public void setId(int id) {
         this.id = id;
     }
@@ -76,6 +109,13 @@ public class LernKarte {
         this.pAs = pAs;
     }
 
+    /**
+     * Speichert die übergebene LernKarte in die LernKartetabelle, die Zuordnung
+     * der Themenbereiche zur LernKarte in die LernKarte2ThemenBereichtabelle 
+     * und die Zuordnung der PotentiellenAntworten zur LernKarte in die 
+     * PotentielleAntworttabelle.
+     * @param lK 
+     */
     public static void insert(LernKarte lK) {
 
         try {
@@ -124,6 +164,13 @@ public class LernKarte {
 
     }
 
+    /**
+     * Löscht die übergebene LernKarte in der LernKartetabelle, die Zuordnung
+     * der Themenbereiche zur LernKarte in der LernKarte2ThemenBereichtabelle 
+     * und die Zuordnung der PotentiellenAntworten zur LernKarte in der 
+     * PotentielleAntworttabelle.
+     * @param lK 
+     */
     public static void delete(LernKarte lK) {
 
         try {
@@ -153,6 +200,11 @@ public class LernKarte {
 
     }
 
+    /**
+     * Gibt eine ArrayList vom Typ LernKarte von allen in der DB gespeicherten
+     * LernKarten zurück.
+     * @return 
+     */
     public static ArrayList<LernKarte> getAll() {
         ArrayList<LernKarte> lKs = new ArrayList<>();
         try {
@@ -191,6 +243,10 @@ public class LernKarte {
         return lKs;
     }
     
+    /**
+     * Gibt eine  LernKarte anhand der übergebenen lernKarten_id zurück.
+     * @return 
+     */
      public static LernKarte getById(int lkid) {
        LernKarte lK = null;
         try {
@@ -238,6 +294,16 @@ public class LernKarte {
         return lK;
     }   
 
+    /**
+     * Updatet die übergebene LernKarte in der LernKartetabelle.
+     * Updatet die Zuordnung der Themenbereiche zur LernKarte per SQL-Update
+     * in der LernKarte2ThemenBereichtabelle durch löschen und neu einfügen
+     * und die Zuordnung der PotentiellenAntworten zur LernKarte in der 
+     * PotentielleAntworttabelle durch löschen und neu einfügen.
+     * Es werden die entsprechen Insert()- und Delete()-Methoden hierzu 
+     * aufgerufen.
+     * @param lK 
+     */
     public static void update(LernKarte lK) {
 
         try {

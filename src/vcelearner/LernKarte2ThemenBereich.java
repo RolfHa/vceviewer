@@ -1,3 +1,30 @@
+/**
+ * LERNKARTE2THEMENEBEREICH
+ * 
+ * Basisklasse entspricht der "lernkarte2themenbereich"-Zuordnungstabelle in der
+ * Datenbank
+ *  
+ * 
+ * Hier werden Zuordnungen der Themen zu den Lernkarten (eine LK kann zu 
+ * mehreren Themen gehören) in Abhängigkeit von der lernkarte_id
+ * und der themenbereich_id mit folgenden Parametern gespeichert:
+ * 
+ * 
+ * - id                 int
+ * 
+ * - lernkarte_id       int
+ * 
+ * - themenbereich_id   int, wird zu String bei insert()
+ * 
+ * 
+ * Methodenübersicht:
+ * 
+ * - insert()
+ * - update()
+ * - delete()
+ * - getAllByLernKarte_id()
+ * - toString()
+ */
 package vcelearner;
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -56,6 +83,10 @@ public class LernKarte2ThemenBereich {
         this.id = id;
     }
 
+    /**
+     * Speichert die übergebene Zuordnung der Themen zu den Lernkarten
+     * @param lK2TB 
+     */
     public static void insert(LernKarte2ThemenBereich lK2TB) {
 
         try {
@@ -93,6 +124,10 @@ public class LernKarte2ThemenBereich {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Updatet die Zuordnung der Lernkarten zu den Themen anhand der lernkarte_id
+     * und der themenbereich_id
+     */
     public void update() {
 
         try {
@@ -123,6 +158,11 @@ public class LernKarte2ThemenBereich {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Löscht die Zuordnung der Lernkarten zu den Themen anhand der übegebenen
+     * lernkarte_id
+     * @param lKid 
+     */
     public static void delete(int lKid) {
 
         try {
@@ -149,6 +189,13 @@ public class LernKarte2ThemenBereich {
         }
 
     }
+    
+    /**
+     * Gibt eine ArrayList an LernKarten abhängig von der übergebenen 
+     * lernkarte_id zurück
+     * @param lKid
+     * @return 
+     */
  public static ArrayList<LernKarte2ThemenBereich> getAllByLernKarte_id(int lKid) {
         ArrayList<LernKarte2ThemenBereich> lK2TBs = new ArrayList<>();
         try {

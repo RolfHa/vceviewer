@@ -1,3 +1,37 @@
+/**
+ * BENUTZERSITZUNG
+ * 
+ * Klasse arbeitet auf den Klassen (indirekt auf den Tabellen):
+ * 
+ * - Benutzer2LernKarte
+ * - LernSitzung2PotentielleAntwort
+ * - Lernsitzung2LernKarte 
+ *  
+ * 
+ * Hier wird auf den Tabellen und der UI mit folgenden Parametern gearbeitet:
+ * 
+ * 
+ * - zeitVorgabe               int
+ * 
+ * - benutzer                  Benutzer
+ * 
+ * - sLKs                      ArrayList(Typ: SitzungsLernKarte)
+ * 
+ * - aktuellerSLKIndex         int
+ * 
+ * - lernSitzung               LernSitzung
+ * 
+ * 
+ * Methodenübersicht:
+ * 
+ * - insert()
+ * - geheZu()
+ * - getTitelString()
+ * - speichereInDB()
+ * - getNextSitzungsLernKarte()
+ * - getPrevSitzungsLernKarte()
+ */
+
 package vcelearner;
 
 import java.sql.Connection;
@@ -18,12 +52,14 @@ public class BenutzerSitzung {
     static PreparedStatement pst = null;
     static ResultSet rst = null;
 
+    // Objektvariablen
     private int zeitVorgabe;
     private Benutzer benutzer;
     private ArrayList<SitzungsLernKarte> sLKs;
     private int aktuellerSLKIndex;
     private LernSitzung lernSitzung;
 
+    // Konstruktor
     public BenutzerSitzung(int zeitVorgabe, Benutzer benutzer,
             ArrayList<LernKarte> lKs) {
         this.zeitVorgabe = zeitVorgabe;
@@ -70,6 +106,20 @@ public class BenutzerSitzung {
         lernSitzung = new LernSitzung(lernSitzungsTyp, benutzer.getId());
         LernSitzung.insert(lernSitzung);
     }
+
+    // Methoden
+    
+    /**
+     * Speichert die übergebene BenutzerSitzung.
+     * 
+     * in Tabellen:                     speichert:
+     * Benutzer2LernKarte               wiedervorlage (löscht Eintrag, falls vorhanden)
+     * LernSitzung2PotentielleAntwort   gegebeneAntworten (als Datentyp PotentielleAntwort)
+     * Lernsitzung2LernKarte            gemogelt          
+     * 
+     * Reihenfolge der Speicherung: wiedervorlage, gegebeneAntwort, gemogelt
+     * @param benutzerSitzung 
+     */
 
     public static void insert(BenutzerSitzung benutzerSitzung) {
 
