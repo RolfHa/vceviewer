@@ -19,7 +19,7 @@ public class LernUIDummy2 {
         for (LernKarte lK : lKs) {
             boolean keep=false;
             for (ThemenBereich tB : lK.gettBs()) {
-                if (tB.getId() == 1) {
+                if (tB.getId() == 3) {
                     keep=true;
                 }
             }

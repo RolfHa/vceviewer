@@ -585,6 +585,7 @@ public class LernenUI extends javax.swing.JFrame {
         textAreaFrage.setEditable(false);
         textAreaFrage.setBackground(panelFrage.getBackground());
         textAreaFrage.setColumns(20);
+        textAreaFrage.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
         textAreaFrage.setRows(1);
         textAreaFrage.setBorder(null);
         scrollPaneFrage.setViewportView(textAreaFrage);
@@ -845,8 +846,7 @@ public class LernenUI extends javax.swing.JFrame {
             }
         });
 
-        spinnerFontSize.setModel(new javax.swing.SpinnerNumberModel(13, 8, 24, 1));
-        spinnerFontSize.setBorder(null);
+        spinnerFontSize.setModel(new javax.swing.SpinnerNumberModel(18, 8, 24, 1));
         spinnerFontSize.setOpaque(false);
         spinnerFontSize.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
