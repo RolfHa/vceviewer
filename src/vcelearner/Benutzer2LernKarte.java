@@ -98,6 +98,32 @@ public class Benutzer2LernKarte {
             }
         }
     }
+    
+    public static void update(int alteLKId, int lernKarteId){
+        try {
+            Connection con = MySQLConnection.getConnection();
+            String sql = "UPDATE benutzer2lernkarte set lernkarte_id =? WHERE lernkarte_id=?";
+            pst = con.prepareStatement(sql);
+            pst.setInt(1, lernKarteId);
+            pst.setInt(2, alteLKId);
+            rst = pst.executeQuery();
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+                if (rst != null) {
+                    rst.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }
 
     /**
      * Gibt eine ArrayListe vom Typ Benutzer2LernKarte in Abhängigkeit vom 

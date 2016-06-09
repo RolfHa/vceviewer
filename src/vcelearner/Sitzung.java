@@ -37,7 +37,7 @@ import java.util.ArrayList;
  */
 public class Sitzung {
 
-    private ArrayList<LernKarte> lKs = LernKarte.getAll();
+    private ArrayList<LernKarte> lKs = LernKarte.getAllAktiv();
     //private ArrayList<LernKarte> lKs = new ArrayList<>();
     private int aktuellerLKIndex = 0;
 
@@ -67,8 +67,9 @@ public class Sitzung {
     }
 
     public void setAktuelleLernKarte(LernKarte lK) {
-        lKs.set(aktuellerLKIndex, lK);
         LernKarte.update(lK);
+        lKs.set(aktuellerLKIndex, lK);
+        
     }
 
     public void addLernKarte(LernKarte lK) {

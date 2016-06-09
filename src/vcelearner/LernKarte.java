@@ -52,14 +52,16 @@ public class LernKarte {
     private int id;
     private String frage;
     private int schwierigkeitsGrad;
+    private boolean aktiv;
     private ArrayList<ThemenBereich> tBs = null;
     private ArrayList<PotentielleAntwort> pAs = null;
 
     // Konstruktor
-    public LernKarte(int id, String frage, int schwierigkeitsGrad) {
+    public LernKarte(int id, String frage, int schwierigkeitsGrad, boolean aktiv) {
         this.id = id;
         this.frage = frage;
         this.schwierigkeitsGrad = schwierigkeitsGrad;
+        this.aktiv = aktiv;
     }
 
     public LernKarte(String frage, int schwierigkeitsGrad) {
@@ -88,6 +90,10 @@ public class LernKarte {
         return pAs;
     }
 
+    public boolean isAktiv() {
+        return aktiv;
+    }
+    
     // SETTER
     public void setId(int id) {
         this.id = id;
@@ -109,6 +115,10 @@ public class LernKarte {
         this.pAs = pAs;
     }
 
+    public void setAktiv(boolean aktiv) {
+        this.aktiv = aktiv;
+    }
+
     /**
      * Speichert die übergebene LernKarte in die LernKartetabelle, die Zuordnung
      * der Themenbereiche zur LernKarte in die LernKarte2ThemenBereichtabelle 
@@ -117,13 +127,13 @@ public class LernKarte {
      * @param lK 
      */
     public static void insert(LernKarte lK) {
-
+        
         try {
             // VERBINDUNG AUFBBAUEN:
             Connection con = MySQLConnection.getConnection();
 
             // STATEMENT
-            String Sql = "INSERT INTO lernkarte VALUES (null, ?, ?)";
+            String Sql = "INSERT INTO lernkarte VALUES (null, ?, ?, 'aktiv')";
             pst = con.prepareStatement(Sql, PreparedStatement.RETURN_GENERATED_KEYS);
             pst.setString(1, lK.getFrage());
             pst.setInt(2, lK.getSchwierigkeitsGrad());
@@ -161,7 +171,6 @@ public class LernKarte {
             }
 
         }
-
     }
 
     /**
@@ -213,7 +222,7 @@ public class LernKarte {
             st = con.createStatement();
             rst = st.executeQuery(sql);
             while (rst.next()) {
-                LernKarte lK = new LernKarte(rst.getInt("id"), rst.getString("frage"), rst.getInt("schwierigkeitsGrad"));
+                LernKarte lK = new LernKarte(rst.getInt("id"), rst.getString("frage"), rst.getInt("schwierigkeitsGrad"),Boolean.parseBoolean(rst.getString("aktiv")));
                 lK.setpAs(PotentielleAntwort.getAllByLernKarte_id(lK.getId()));
 
                 ArrayList<LernKarte2ThemenBereich> lK2TBs = LernKarte2ThemenBereich.getAllByLernKarte_id(lK.getId());
@@ -258,7 +267,7 @@ public class LernKarte {
             rst = pst.executeQuery();
             while (rst.next()) {
 
-                lK = new LernKarte(rst.getInt("id"), rst.getString("frage"), rst.getInt("schwierigkeitsGrad"));
+                lK = new LernKarte(rst.getInt("id"), rst.getString("frage"), rst.getInt("schwierigkeitsGrad"), Boolean.parseBoolean(rst.getString("aktiv")));
 
                 lK.setpAs(PotentielleAntwort.getAllByLernKarte_id(lK.getId()));
 
@@ -292,7 +301,45 @@ public class LernKarte {
 
         }
         return lK;
-    }   
+    } 
+     
+    public static ArrayList<LernKarte> getAllAktiv(){
+        ArrayList<LernKarte> lKs = new ArrayList<>();
+        try {
+            Connection con = MySQLConnection.getConnection();
+            String sql = "SELECT * FROM lernkarte WHERE aktiv = 'true'";
+            st = con.createStatement();
+            rst = st.executeQuery(sql);
+            while (rst.next()) {
+                LernKarte lK = new LernKarte(rst.getInt("id"), rst.getString("frage"), rst.getInt("schwierigkeitsGrad"),Boolean.parseBoolean(rst.getString("aktiv")));
+                lK.setpAs(PotentielleAntwort.getAllByLernKarte_id(lK.getId()));
+
+                ArrayList<LernKarte2ThemenBereich> lK2TBs = LernKarte2ThemenBereich.getAllByLernKarte_id(lK.getId());
+
+                ArrayList<ThemenBereich> tBs = new ArrayList<>();
+                for (LernKarte2ThemenBereich lK2TB : lK2TBs) {
+                    tBs.add(ThemenBereich.getById(lK2TB.getThemenBereich_id()));
+                }
+                lK.settBs(tBs);
+                lKs.add(lK);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (st != null) {
+                    st.close();
+                }
+                if (rst != null) {
+                    rst.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        return lKs; 
+    }
 
     /**
      * Updatet die übergebene LernKarte in der LernKartetabelle.
@@ -304,6 +351,8 @@ public class LernKarte {
      * aufgerufen.
      * @param lK 
      */
+    
+    /*
     public static void update(LernKarte lK) {
 
         try {
@@ -343,6 +392,37 @@ public class LernKarte {
             }
         }
 
+    }
+    */
+    
+    public static void update(LernKarte lK){
+        
+        try {
+            int alteLKId = lK.getId();
+            // Variable aktiv von der alten Lernkarte auf false setzen    
+            Connection con = MySQLConnection.getConnection();
+            String sql = "UPDATE lernkarte SET aktiv = 'false' WHERE id=?";
+            pst = con.prepareStatement(sql);
+            pst.setInt(1, lK.getId());
+            pst.executeUpdate();
+            
+            // Neue Lernkarte in die Datenbank speichern            
+            LernKarte.insert(lK);
+            // Methode aufrufen um die Wiedervorlage auf die neue Lernkarte zu setzen
+            Benutzer2LernKarte.update(alteLKId, lK.getId());
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
     }
 
     @Override
