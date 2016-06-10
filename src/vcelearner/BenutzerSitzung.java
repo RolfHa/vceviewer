@@ -217,10 +217,10 @@ public class BenutzerSitzung {
             rueckgabe += "Themenbereich(e): " + getAktuelleSitzungsLernKarte().getlK().gettBs().toString();
         } else {
             rueckgabe += "Frage " + (aktuellerSLKIndex + 1) + " / " + sLKs.size();
-            rueckgabe += " \t(ID = " + getAktuelleSitzungsLernKarte().getlK().getId() + ")";
-            rueckgabe += " \tSchwierigkeit: " + sLKs.get(aktuellerSLKIndex).getlK().getSchwierigkeitsGrad();
+            rueckgabe += "        (ID = " + getAktuelleSitzungsLernKarte().getlK().getId() + ")";
+            rueckgabe += "        Schwierigkeit: " + sLKs.get(aktuellerSLKIndex).getlK().getSchwierigkeitsGrad();
             if (getAktuelleSitzungsLernKarte().isGemogelt()) {
-                rueckgabe += " \tGEMOGELT!";
+                rueckgabe += "        GEMOGELT!";
             }
         }
         return rueckgabe;
