@@ -133,7 +133,7 @@ public class LernKarte {
             Connection con = MySQLConnection.getConnection();
 
             // STATEMENT
-            String Sql = "INSERT INTO lernkarte VALUES (null, ?, ?, 'aktiv')";
+            String Sql = "INSERT INTO lernkarte VALUES (null, ?, ?, 'true')";
             pst = con.prepareStatement(Sql, PreparedStatement.RETURN_GENERATED_KEYS);
             pst.setString(1, lK.getFrage());
             pst.setInt(2, lK.getSchwierigkeitsGrad());

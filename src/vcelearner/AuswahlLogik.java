@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class AuswahlLogik {
 
-    private ArrayList<LernKarte> alleLKs = LernKarte.getAll();
+    private ArrayList<LernKarte> alleLKs = LernKarte.getAllAktiv();
     private ArrayList<LernKarte> unselectedLKs = new ArrayList<>();
     private boolean[] tBsGewaehlt = new boolean[7];
     private int zeitLimit;
