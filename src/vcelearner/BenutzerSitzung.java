@@ -125,29 +125,29 @@ public class BenutzerSitzung {
 
         for (int i = 0; i < benutzerSitzung.getsLKs().size(); i++) {
 
-            // Wiedervorlage in Benutzer2Lernkarte speichern, nur wenn
-            // Wiedervorlage = true und kein diesbezüglicher Eintrag in der DB
-            // vorhaneden ist
-            Benutzer2LernKarte b2lk
-                    = new Benutzer2LernKarte(benutzerSitzung.getBenutzer().getId(),
-                            benutzerSitzung.getsLKs().get(i).getlK().getId(),
-                            benutzerSitzung.getsLKs().get(i).isWiederVorlage());
-
-            if (benutzerSitzung.getsLKs().get(i).isWiederVorlage() == true
-                    && Benutzer2LernKarte.checkWiedervorlage(b2lk) == false) {
-
-                Benutzer2LernKarte.insert(b2lk);
-            }
-            // Wiedervorlage in Benutzer2Lernkarte löschen, nur wenn
-            // Wiedervorlage = false und allerdings ein diesbezüglicher Eintrag in der DB
-            // vorhanden ist
-            if (benutzerSitzung.getsLKs().get(i).isWiederVorlage() == false && 
-                Benutzer2LernKarte.checkWiedervorlage(b2lk)== true) {
-                
-                Benutzer2LernKarte.delete(benutzerSitzung.getBenutzer(), 
-                    benutzerSitzung.getsLKs().get(i).getlK()
-                );
-            }
+//            // Wiedervorlage in Benutzer2Lernkarte speichern, nur wenn
+//            // Wiedervorlage = true und kein diesbezüglicher Eintrag in der DB
+//            // vorhaneden ist
+//            Benutzer2LernKarte b2lk
+//                    = new Benutzer2LernKarte(benutzerSitzung.getBenutzer().getId(),
+//                            benutzerSitzung.getsLKs().get(i).getlK().getId(),
+//                            benutzerSitzung.getsLKs().get(i).isWiederVorlage());
+//
+//            if (benutzerSitzung.getsLKs().get(i).isWiederVorlage() == true
+//                    && Benutzer2LernKarte.checkWiedervorlage(b2lk) == false) {
+//
+//                Benutzer2LernKarte.insert(b2lk);
+//            }
+//            // Wiedervorlage in Benutzer2Lernkarte löschen, nur wenn
+//            // Wiedervorlage = false und allerdings ein diesbezüglicher Eintrag in der DB
+//            // vorhanden ist
+//            if (benutzerSitzung.getsLKs().get(i).isWiederVorlage() == false && 
+//                Benutzer2LernKarte.checkWiedervorlage(b2lk)== true) {
+//                
+//                Benutzer2LernKarte.delete(benutzerSitzung.getBenutzer(), 
+//                    benutzerSitzung.getsLKs().get(i).getlK()
+//                );
+//            }
             // ArrayList Gegebene Antworten (als PotentielleAntworten) in 
             // LernSitzung2PotentielleAntwort speichern
             for (int j = 0; j < benutzerSitzung.getsLKs().get(i).getGegebeneAntworten().size(); j++) {
@@ -217,13 +217,35 @@ public class BenutzerSitzung {
             rueckgabe += "Themenbereich(e): " + getAktuelleSitzungsLernKarte().getlK().gettBs().toString();
         } else {
             rueckgabe += "Frage " + (aktuellerSLKIndex + 1) + " / " + sLKs.size();
-            rueckgabe += " \t(ID = " + getAktuelleSitzungsLernKarte().getlK().getId() + ")";
-            rueckgabe += " \tSchwierigkeit: " + sLKs.get(aktuellerSLKIndex).getlK().getSchwierigkeitsGrad();
+            rueckgabe += "        (ID = " + getAktuelleSitzungsLernKarte().getlK().getId() + ")";
+            rueckgabe += "        Schwierigkeit: " + sLKs.get(aktuellerSLKIndex).getlK().getSchwierigkeitsGrad();
             if (getAktuelleSitzungsLernKarte().isGemogelt()) {
-                rueckgabe += " \tGEMOGELT!";
+                rueckgabe += "        GEMOGELT!";
             }
         }
         return rueckgabe;
+    }
+    
+    // setzt WiederVorlage in ArrayList UND Datenbank für die Aktuelle SitzungsLernKarte
+    // und den Benutzer, für den die BenutzerSitzung angelegt wurde
+    public void setAktuelleSitzungsLernKarteWiederVorlage (boolean wiederVorlage) {
+        // Setzen in der ArrayList
+        getAktuelleSitzungsLernKarte().setWiederVorlage(wiederVorlage);
+        // Erstellen eines Benutzer2LernKarte-Objekts
+        Benutzer2LernKarte b2Lk = new Benutzer2LernKarte(getBenutzer().getId(),
+                getAktuelleSitzungsLernKarte().getlK().getId(),
+                wiederVorlage);
+        // Prüfen ob die Wiedervorlagedaten in Array und Datenbank unterschiedlich sind
+        if (Benutzer2LernKarte.checkWiedervorlage(b2Lk)^wiederVorlage) {
+            // Prüfen ob Wiedervorlagedatensatz eingefügt oder gelöscht werden muss
+            if (wiederVorlage) {
+                // Speichern von Wiedervorlage=true
+                Benutzer2LernKarte.insert(b2Lk);
+            } else {
+                // "Speichern"(durch Löschung) von Wiedervorlage=false
+                Benutzer2LernKarte.delete(benutzer, getAktuelleSitzungsLernKarte().getlK());
+            }
+        }
     }
 
     public void speichereInDB() {
