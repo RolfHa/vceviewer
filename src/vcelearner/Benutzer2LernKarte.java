@@ -106,7 +106,7 @@ public class Benutzer2LernKarte {
             pst = con.prepareStatement(sql);
             pst.setInt(1, lernKarteId);
             pst.setInt(2, alteLKId);
-            rst = pst.executeQuery();
+            pst.executeUpdate();
             
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
