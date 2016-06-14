@@ -52,7 +52,7 @@ public class LernKarte2ThemenBereich {
     static PreparedStatement pst = null;
     static ResultSet rst = null;
 
-    private int id;
+//    private int id;
     private int lernKarte_id;
     private int themenBereich_id;
 
@@ -61,15 +61,15 @@ public class LernKarte2ThemenBereich {
         this.themenBereich_id = themenBereich_id;
     }
 
-    public LernKarte2ThemenBereich(int id, int lernKarte_id, int themenBereich_id) {
-        this.id = id;
-        this.lernKarte_id = lernKarte_id;
-        this.themenBereich_id = themenBereich_id;
-    }
+//    public LernKarte2ThemenBereich(int id, int lernKarte_id, int themenBereich_id) {
+//        this.id = id;
+//        this.lernKarte_id = lernKarte_id;
+//        this.themenBereich_id = themenBereich_id;
+//    }
 
-    public int getId() {
-        return id;
-    }
+//    public int getId() {
+//        return id;
+//    }
 
     public int getLernKarte_id() {
         return lernKarte_id;
@@ -79,9 +79,9 @@ public class LernKarte2ThemenBereich {
         return themenBereich_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+//    public void setId(int id) {
+//        this.id = id;
+//    }
 
     /**
      * Speichert die übergebene Zuordnung der Themen zu den Lernkarten
@@ -93,16 +93,16 @@ public class LernKarte2ThemenBereich {
             // VERBINDUNG AUFBBAUEN:
             Connection con = MySQLConnection.getConnection();
             // STATEMENT
-            String Sql = "INSERT INTO lernkarte2themenbereich VALUES (null, ?, ?)";
-            pst = con.prepareStatement(Sql, PreparedStatement.RETURN_GENERATED_KEYS);
+            String Sql = "INSERT INTO lernkarte2themenbereich VALUES (?, ?)";
+            pst = con.prepareStatement(Sql);
             pst.setInt(1, lK2TB.getLernKarte_id());
             pst.setInt(2, lK2TB.getThemenBereich_id());
 
             pst.executeUpdate();
-            rst = pst.getGeneratedKeys();
-            while (rst.next()) {
-                lK2TB.setId(rst.getInt(1));
-            }
+//            rst = pst.getGeneratedKeys();
+//            while (rst.next()) {
+//                lK2TB.setId(rst.getInt(1));
+//            }
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -112,9 +112,9 @@ public class LernKarte2ThemenBereich {
                 if (pst != null) {
                     pst.close();
                 }
-                if (rst != null) {
-                    rst.close();
-                }
+//                if (rst != null) {
+//                    rst.close();
+//                }
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
 //                Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
@@ -128,35 +128,36 @@ public class LernKarte2ThemenBereich {
      * Updatet die Zuordnung der Lernkarten zu den Themen anhand der lernkarte_id
      * und der themenbereich_id
      */
-    public void update() {
-
-        try {
-            // VERBINDUNG AUFBBAUEN:
-            Connection con = MySQLConnection.getConnection();
-            // PREPARED STATEMENT:
-            String Sql = "UPDATE lernkarte2themenbereich SET lernkarte_id=?, themenbereich_id=? WHERE id=?";
-            pst = con.prepareStatement(Sql);
-            pst.setInt(1, lernKarte_id);
-            pst.setInt(2, themenBereich_id);
-            pst.setInt(3, id);
-
-            pst.executeUpdate();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            //Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (pst != null) {
-                    pst.close();
-                }
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-//                Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+//    public void update(int alteLk_id, int alteTb_id) {
+//
+//        try {
+//            // VERBINDUNG AUFBBAUEN:
+//            Connection con = MySQLConnection.getConnection();
+//            // PREPARED STATEMENT:
+//            String Sql = "UPDATE lernkarte2themenbereich SET lernkarte_id=?, themenbereich_id=? WHERE lernkarte_id=? AND themenbereich_id=?";
+//            pst = con.prepareStatement(Sql);
+//            pst.setInt(1, lernKarte_id);
+//            pst.setInt(2, themenBereich_id);
+//            pst.setInt(3, alteLk_id);
+//            pst.setInt(4, alteTb_id);
+//
+//            pst.executeUpdate();
+//        } catch (SQLException ex) {
+//            System.out.println(ex.getMessage());
+//            //Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
+//        } finally {
+//            try {
+//                if (pst != null) {
+//                    pst.close();
+//                }
+//            } catch (SQLException ex) {
+//                System.out.println(ex.getMessage());
+////                Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//
+//        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
 
     /**
      * Löscht die Zuordnung der Lernkarten zu den Themen anhand der übegebenen
@@ -207,7 +208,7 @@ public class LernKarte2ThemenBereich {
             while (rst.next()) {
 
                 LernKarte2ThemenBereich lK2TB = new LernKarte2ThemenBereich(rst.getInt("lernkarte_id"), rst.getInt("themenbereich_id"));
-                lK2TB.setId(rst.getInt("id"));
+//                lK2TB.setId(rst.getInt("id"));
                 lK2TBs.add(lK2TB);
 
             }
@@ -234,7 +235,7 @@ public class LernKarte2ThemenBereich {
     
     @Override
     public String toString() {
-        return "Lernkarte2Themenbereich{" + "id=" + id + ", lernKarte_id=" + lernKarte_id + ", themenBereich_id=" + themenBereich_id + '}';
+        return "Lernkarte2Themenbereich{" + ", lernKarte_id=" + lernKarte_id + ", themenBereich_id=" + themenBereich_id + '}';
     }
 
 }
