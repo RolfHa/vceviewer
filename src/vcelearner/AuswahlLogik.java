@@ -105,7 +105,7 @@ public class AuswahlLogik {
         for (LernKarte lKToRemove : unselectedLKs) {
             selectedLKs.remove(lKToRemove);
         }
-        if (sitzungsTyp == "LernR" || sitzungsTyp == "Test") {
+        if ("LernR".equals(sitzungsTyp) || "Test".equals(sitzungsTyp)) {
             java.util.Collections.shuffle(selectedLKs);
         }
         for (LernKarte lK : selectedLKs) {
@@ -119,7 +119,7 @@ public class AuswahlLogik {
         for (LernKarte lKToRemove : unselectedLKs) {
             selectedLKs.remove(lKToRemove);
         }
-        if (sitzungsTyp == "LernR" || sitzungsTyp == "Test") {
+        if ("LernR".equals(sitzungsTyp) || "Test".equals(sitzungsTyp)) {
             java.util.Collections.shuffle(selectedLKs);
         }
         while (selectedLKs.size() > anzahl) {

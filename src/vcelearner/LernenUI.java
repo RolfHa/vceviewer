@@ -124,8 +124,17 @@ public class LernenUI extends javax.swing.JFrame {
                 panelsAntwort[i].setPreferredSize(new Dimension(700, 30 + calcStringHoehe(textAreasAntwort[i])));
                 panelsAntwort[i].setVisible(true);
 
-                // weiß und grau für Fragen, bei denen mogeln nicht aktiv ist
-                if (session.getAktuelleSitzungsLernKarte().isMogelnAktiv() == false) {
+                // grün/rot-Hervorhebung für Fragen, bei denen mogeln aktiv ist
+                if (session.getAktuelleSitzungsLernKarte().isMogelnAktiv()) {
+                    if (session.getAktuelleSitzungsLernKarte().getlK().getpAs().get(i).isRichtigkeit() == true) {
+
+                        textAreasAntwort[i].setBackground(new java.awt.Color(152, 251, 152));
+                    } else {
+
+                        textAreasAntwort[i].setBackground(new java.awt.Color(255, 228, 225));
+                    }
+                } else {
+                    // weiß und grau für Fragen, bei denen mogeln nicht aktiv ist
                     textAreasAntwort[i].setBackground(panelsAntwort[i].getBackground());
                 }
 
@@ -139,14 +148,13 @@ public class LernenUI extends javax.swing.JFrame {
         }
         scrollPane1.setViewportView(panelText);
 
-        // für Fragen, bei denen mogeln aktiv ist, wird hierdurch das rot/grün einfärben ausgelöst
-        if (session.getAktuelleSitzungsLernKarte().isMogelnAktiv() == true) {
-            session.getAktuelleSitzungsLernKarte().setMogelnAktiv(false);
-            toggleButtonMogeln.doClick();
-            toggleButtonMogeln.setSelected(true);
-
-        }
-
+//        // für Fragen, bei denen mogeln aktiv ist, wird hierdurch das rot/grün einfärben ausgelöst
+//        if (session.getAktuelleSitzungsLernKarte().isMogelnAktiv() == true) {
+//            session.getAktuelleSitzungsLernKarte().setMogelnAktiv(false);
+//            toggleButtonMogeln.doClick();
+//            toggleButtonMogeln.setSelected(true);
+//
+//        }
     }
 
     private void leseModus() {
@@ -986,9 +994,12 @@ public class LernenUI extends javax.swing.JFrame {
     }//GEN-LAST:event_toggleButtonWiedervorlageActionPerformed
 
     private void buttonGeheZuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGeheZuActionPerformed
-        cache();
-        session.geheZu(Integer.parseInt(textFieldGeheZu.getText()));
-        fillWithValues();
+        if (!textFieldGeheZu.getText().isEmpty() && textFieldGeheZu.getText()!=""
+                && textFieldGeheZu.getText()!=null) {
+            cache();
+            session.geheZu(Integer.parseInt(textFieldGeheZu.getText()));
+            fillWithValues();
+        }
     }//GEN-LAST:event_buttonGeheZuActionPerformed
 
     private void buttonZurueckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonZurueckActionPerformed
@@ -1001,6 +1012,9 @@ public class LernenUI extends javax.swing.JFrame {
         if (modus == 0) {
             cache();
             beendeLernModus();
+        } else {
+            new AuswahlUI(session.getBenutzer()).setVisible(true);
+            this.dispose();
         }
     }//GEN-LAST:event_ButtonEndeActionPerformed
 
@@ -1011,32 +1025,37 @@ public class LernenUI extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonVorActionPerformed
 
     private void toggleButtonMogelnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonMogelnActionPerformed
-
-// speichern, dass mogeln benutzt wurde, falls noch nicht gespeichert
-        if (session.getAktuelleSitzungsLernKarte().isGemogelt() == false) {
+        if (toggleButtonMogeln.isSelected() && modus == 0) {
             session.getAktuelleSitzungsLernKarte().setGemogeltTrue();
         }
-
-        // wenn mogeln nicht aktiv: antworten einfärben rot/grün        
-        if (session.getAktuelleSitzungsLernKarte().isMogelnAktiv() == false) {
-            session.getAktuelleSitzungsLernKarte().setMogelnAktiv(true);
-
-            for (int i = 0; i < session.getAktuelleSitzungsLernKarte().getlK().getpAs().size(); i++) {
-                if (session.getAktuelleSitzungsLernKarte().getlK().getpAs().get(i).isRichtigkeit() == true) {
-
-                    textAreasAntwort[i].setBackground(new java.awt.Color(152, 251, 152));
-                } else {
-
-                    textAreasAntwort[i].setBackground(new java.awt.Color(255, 228, 225));
-                }
-            }
-
-            // wenn mogeln bereits aktiv: eingefärbte antworten wieder rückgängig machen    
-        } else {
-            session.getAktuelleSitzungsLernKarte().setMogelnAktiv(false);
-            cache();            // damit angeklickte antworten gecachet werden
-            fillWithValues();   // damit felder wieder weiß/grau werden
-        }
+        session.getAktuelleSitzungsLernKarte().setMogelnAktiv(toggleButtonMogeln.isSelected());
+        cache();
+        fillWithValues();
+//// speichern, dass mogeln benutzt wurde, falls noch nicht gespeichert
+//        if (session.getAktuelleSitzungsLernKarte().isGemogelt() == false) {
+//            session.getAktuelleSitzungsLernKarte().setGemogeltTrue();
+//        }
+//
+//        // wenn mogeln nicht aktiv: antworten einfärben rot/grün        
+//        if (session.getAktuelleSitzungsLernKarte().isMogelnAktiv() == false) {
+//            session.getAktuelleSitzungsLernKarte().setMogelnAktiv(true);
+//
+//            for (int i = 0; i < session.getAktuelleSitzungsLernKarte().getlK().getpAs().size(); i++) {
+//                if (session.getAktuelleSitzungsLernKarte().getlK().getpAs().get(i).isRichtigkeit() == true) {
+//
+//                    textAreasAntwort[i].setBackground(new java.awt.Color(152, 251, 152));
+//                } else {
+//
+//                    textAreasAntwort[i].setBackground(new java.awt.Color(255, 228, 225));
+//                }
+//            }
+//
+//            // wenn mogeln bereits aktiv: eingefärbte antworten wieder rückgängig machen    
+//        } else {
+//            session.getAktuelleSitzungsLernKarte().setMogelnAktiv(false);
+//            cache();            // damit angeklickte antworten gecachet werden
+//            fillWithValues();   // damit felder wieder weiß/grau werden
+//        }
 
     }//GEN-LAST:event_toggleButtonMogelnActionPerformed
 

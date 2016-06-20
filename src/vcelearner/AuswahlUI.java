@@ -493,6 +493,7 @@ public class AuswahlUI extends javax.swing.JFrame {
                 spinnerAnzahlFragen.setEnabled(false);
                 spinnerTimer.setValue(120);
                 spinnerTimer.setEnabled(false);
+                buttonAlleThemen.setEnabled(false);
                 break;
             }
             case 1: {
@@ -503,6 +504,7 @@ public class AuswahlUI extends javax.swing.JFrame {
                 spinnerAnzahlFragen.setEnabled(true);
                 spinnerTimer.setEnabled(true);
                 toggleButtonWiedervorlage.setEnabled(true);
+                buttonAlleThemen.setEnabled(true);
                 break;
             }
             case 2: {
@@ -513,6 +515,7 @@ public class AuswahlUI extends javax.swing.JFrame {
                 spinnerAnzahlFragen.setEnabled(true);
                 spinnerTimer.setEnabled(true);
                 toggleButtonWiedervorlage.setEnabled(true);
+                buttonAlleThemen.setEnabled(true);
                 break;
             }
             case 3: {
@@ -523,6 +526,7 @@ public class AuswahlUI extends javax.swing.JFrame {
                 spinnerAnzahlFragen.setEnabled(true);
                 spinnerTimer.setEnabled(true);
                 toggleButtonWiedervorlage.setEnabled(true);
+                buttonAlleThemen.setEnabled(true);
                 break;
             }
         }

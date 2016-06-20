@@ -74,6 +74,11 @@ public class LoginUI extends javax.swing.JFrame {
                 textFieldPasswortActionPerformed(evt);
             }
         });
+        textFieldPasswort.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textFieldPasswortKeyPressed(evt);
+            }
+        });
 
         labelLoginfehler.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
@@ -159,7 +164,7 @@ public class LoginUI extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonAbbrechenActionPerformed
 
     private void textFieldPasswortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldPasswortActionPerformed
-        
+
     }//GEN-LAST:event_textFieldPasswortActionPerformed
 
     private void textFieldBenutzerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldBenutzerActionPerformed
@@ -182,6 +187,12 @@ public class LoginUI extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_buttonLoginActionPerformed
+
+    private void textFieldPasswortKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldPasswortKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            buttonLogin.doClick();
+        }
+    }//GEN-LAST:event_textFieldPasswortKeyPressed
 
     /**
      * @param args the command line arguments
