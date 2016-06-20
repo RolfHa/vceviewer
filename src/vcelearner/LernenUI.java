@@ -1109,7 +1109,8 @@ public class LernenUI extends javax.swing.JFrame {
     private void textFieldGeheZuKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldGeheZuKeyPressed
         // key=10 heisst Enter o. Return-Taste gedrückt
         int key = evt.getKeyCode();
-        if (key == java.awt.event.KeyEvent.VK_ENTER) {
+        if (key == java.awt.event.KeyEvent.VK_ENTER &&(!textFieldGeheZu.getText().isEmpty() && textFieldGeheZu.getText()!=""
+                && textFieldGeheZu.getText()!=null)){
             cache();
             session.geheZu(Integer.parseInt(textFieldGeheZu.getText()));
             fillWithValues();
