@@ -994,7 +994,8 @@ public class LernenUI extends javax.swing.JFrame {
     }//GEN-LAST:event_toggleButtonWiedervorlageActionPerformed
 
     private void buttonGeheZuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGeheZuActionPerformed
-        if (!textFieldGeheZu.getText().isEmpty() && textFieldGeheZu.getText()!=""
+        if (!textFieldGeheZu.getText().isEmpty() 
+                && !textFieldGeheZu.getText().equals("")
                 && textFieldGeheZu.getText()!=null) {
             cache();
             session.geheZu(Integer.parseInt(textFieldGeheZu.getText()));
@@ -1106,10 +1107,13 @@ public class LernenUI extends javax.swing.JFrame {
         }
         fillWithValues();
     }//GEN-LAST:event_spinnerFontSizeStateChanged
+
     private void textFieldGeheZuKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldGeheZuKeyPressed
         // key=10 heisst Enter o. Return-Taste gedrückt
         int key = evt.getKeyCode();
-        if (key == java.awt.event.KeyEvent.VK_ENTER &&(!textFieldGeheZu.getText().isEmpty() && textFieldGeheZu.getText()!=""
+        if (key == java.awt.event.KeyEvent.VK_ENTER &&
+                (!textFieldGeheZu.getText().isEmpty() 
+                && !textFieldGeheZu.getText().equals("")
                 && textFieldGeheZu.getText()!=null)){
             cache();
             session.geheZu(Integer.parseInt(textFieldGeheZu.getText()));
